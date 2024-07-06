@@ -34,7 +34,8 @@ def count_words(subreddit, word_list, after="", counts=[]):
                         merged_counts.append(j)
                         counts[i] += counts[j]
 
-            sorted_counts = sorted(zip(word_list, counts), key=lambda x: (-x[1], x[0].lower()))
+            sorted_counts = (
+                sorted(zip(word_list, counts), key=lambda x: (-x[1], x[0].lower())))
 
             for i in range(len(word_list)):
                 if (counts[i] > 0) and i not in merged_counts:
