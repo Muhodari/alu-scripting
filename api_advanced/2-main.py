@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 """
-main.py
+2-main
 """
 import sys
 
 if __name__ == '__main__':
-    get_hot_titles = __import__('recurse').get_hot_titles
+    recurse = __import__('2-recurse').recurse
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
-        result = get_hot_titles(sys.argv[1])
+        result = recurse(sys.argv[1])
         if result is not None:
             print(len(result))
         else:
             print("None")
+

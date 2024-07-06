@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-""" recurse.py """
+""" 2-recurse.py """
 import requests
 
-def get_hot_titles(subreddit, titles=[], after=None):
-    """Returns a list of titles of all hot articles in a subreddit."""
+
+def recurse(subreddit, hot_list=[], after=None):
+    """ returns list with titles of all hot articles in a subreddit """
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0'}
     params = {"after": after}
@@ -14,10 +15,10 @@ def get_hot_titles(subreddit, titles=[], after=None):
                             allow_redirects=False)
     if response.status_code == 200:
         data = response.json()["data"]
-        titles += [post["data"]["title"] for post in data["children"]]
+        hot_list += [post["data"]["title"] for post in data["children"]]
         if data["after"] is None:
-            return titles
+            return hot_list
         else:
-            return get_hot_titles(subreddit, titles, data["after"])
+            return recurse(subreddit, hot_list, data["after"])
     elif response.status_code == 404:
         return None
